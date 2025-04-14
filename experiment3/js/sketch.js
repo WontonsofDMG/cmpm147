@@ -27,10 +27,14 @@ class MyClass {
 }
 
 function resizeScreen() {
-  centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-  centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
-  console.log("Resizing...");
-  resizeCanvas(canvasContainer.width(), canvasContainer.height());
+  const containerRect = canvasContainer[0].getBoundingClientRect(); // Gets Dimensions from DOM element.
+    const containerWidth = containerRect.width;                     //canvasContainer[0] accesses the DOM from jQuery object.
+    const containerHeight = containerRect.height;                   //GetBoundingClientRect() returns the size of an element and its position relative to the viewport.
+
+    centerHorz = containerWidth / 2; // Adjusted for drawing logic
+    centerVert = containerHeight / 2; // Adjusted for drawing logic
+    console.log("Resizing...");
+    resizeCanvas(containerWidth, containerHeight);
   // redrawCanvas(); // Redraw everything based on new size
 }
 

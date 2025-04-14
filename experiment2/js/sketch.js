@@ -10,14 +10,17 @@ let spawnChance = 0.015;
 let canvasContainer;
 
 function resizeScreen() {
-    centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
-    centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
+    const containerRect = canvasContainer[0].getBoundingClientRect(); // Get actual dimensions
+    const containerWidth = containerRect.width;
+    const containerHeight = containerRect.height;
+
+    centerHorz = containerWidth / 2; // Adjusted for drawing logic
+    centerVert = containerHeight / 2; // Adjusted for drawing logic
     console.log("Resizing...");
-    resizeCanvas(canvasContainer.width(), canvasContainer.height());
-    // redrawCanvas(); // Redraw everything based on new size
+    resizeCanvas(containerWidth, containerHeight);
     galaxy = new Galaxy(width / 2, height / 2, 220);
     generateBGStars(200);
-  }
+}
 
 function setup() {
 canvasContainer = $("#canvas-container");

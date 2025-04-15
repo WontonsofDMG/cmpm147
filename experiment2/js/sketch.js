@@ -19,7 +19,8 @@ function resizeScreen() {
     console.log("Resizing...");
     resizeCanvas(containerWidth, containerHeight);
     galaxy = new Galaxy(width / 2, height / 2, 220);
-    generateBGStars(200);
+    bgStars = [];
+    generateBGStars(300);
 }
 
 function setup() {

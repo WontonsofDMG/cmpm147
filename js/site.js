@@ -33,9 +33,11 @@ $(document).ready(function() {
     if (document.fullscreenElement) {
       console.log("Entered fullscreen mode");
       $('body').addClass('is-fullscreen');
+      resizeScreen();
     } else {
       console.log("Exited fullscreen mode");
       $('body').removeClass('is-fullscreen');
+      resizeScreen();
     }
   });
 

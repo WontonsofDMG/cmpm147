@@ -8,7 +8,7 @@ function toggleMode() {
   const button = document.getElementById("toggleModeButton");
   button.textContent = isDungeonMode ? "Switch to Overworld" : "Switch to Dungeon";
 
-  // Reset random seed to ensure consistent layout
+  // Reset random seed
   randomSeed(seed);
   noiseSeed(seed);
 
@@ -38,7 +38,7 @@ function generateOverworldGrid(numCols, numRows) {
   let lakeY = floor(random(1, numRows - lakeHeight - 1));
   for (let y = lakeY; y < lakeY + lakeHeight; y++) {
     for (let x = lakeX; x < lakeX + lakeWidth; x++) {
-      grid[y][x] = "."; // lake
+      grid[y][x] = ".";
     }
   }
 
@@ -115,7 +115,7 @@ function generateDungeonGrid(numCols, numRows) {
       rooms.push(newRoom);
       for (let y = ry; y < ry + rh; y++) {
         for (let x = rx; x < rx + rw; x++) {
-          grid[y][x] = "."; // room floor
+          grid[y][x] = ".";
         }
       }
     }

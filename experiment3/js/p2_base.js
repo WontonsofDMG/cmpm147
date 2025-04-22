@@ -23,6 +23,7 @@ function reseed() {
 
 function regenerateGrid() {
   select("#asciiBox").value(gridToString(generateGrid(numCols, numRows)));
+  setupFlock(10, numCols, numRows);
   reparseGrid();
 }
 

@@ -252,6 +252,20 @@ function drawGrid(grid) {
 
         if (code === "T") {
           placeTile(i, j, floor(random(4)), 0);
+          if (grid[i][j - 1] !== "T") placeTile(i, j, 15, 1);
+          else if (grid[i][j + 1] !== "T") placeTile(i, j, 17, 1);
+          else if (grid[i - 1]?.[j] !== "T") placeTile(i, j, 15, 0);
+          else if (grid[i + 1]?.[j] !== "T") placeTile(i, j, 16, 2);
+
+          else if (grid[i][j - 1] !== "T" && grid[i - 1]?.[j] !== "T")
+            placeTile(i, j, 15, 0);
+          else if (grid[i][j + 1] !== "T" && grid[i - 1]?.[j] !== "T")
+            placeTile(i, j, 17, 0);
+          else if (grid[i][j + 1] !== "T" && grid[i + 1]?.[j] !== "T")
+            placeTile(i, j, 17, 2);
+          else if (grid[i][j - 1] !== "T" && grid[i + 1]?.[j] !== "T")
+            placeTile(i, j, 15, 2);
+          else placeTile(i, j, 16, 1); // center
           continue;
         }
 

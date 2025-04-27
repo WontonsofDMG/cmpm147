@@ -2,6 +2,7 @@
 /* global placeTile */
 
 let isDungeonMode = false;
+let flock = [];
 
 function toggleMode() {
   isDungeonMode = !isDungeonMode;
@@ -282,6 +283,154 @@ function drawGrid(grid) {
         }
       }
     }
+  }
+  updateFlock();
+}
+
+class Boid {
+  constructor(x, y) {
+    this.position = createVector(x, y);
+    this.velocity = p5.Vector.random2D();
+    this.acceleration = createVector(0, 0);
+    this.maxSpeed = 2;
+    this.maxForce = 0.05;
+    this.rotation = random(TWO_PI);
+    this.rotationSpeed = random(-0.05, 0.05); 
+  }
+
+  flock(boids) {
+    let alignment = this.align(boids);
+    let cohesion = this.cohere(boids);
+    let separation = this.separate(boids);
+
+    this.acceleration.add(alignment);
+    this.acceleration.add(cohesion);
+    this.acceleration.add(separation);
+  }
+
+  align(boids) {
+    let perceptionRadius = 50;
+    let steering = createVector(0, 0);
+    let total = 0;
+
+    for (let other of boids) {
+      let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
+      if (other !== this && d < perceptionRadius) {
+        steering.add(other.velocity);
+        total++;
+      }
+    }
+
+    if (total > 0) {
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  cohere(boids) {
+    let perceptionRadius = 50;
+    let steering = createVector(0, 0);
+    let total = 0;
+
+    for (let other of boids) {
+      let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
+      if (other !== this && d < perceptionRadius) {
+        steering.add(other.position);
+        total++;
+      }
+    }
+
+    if (total > 0) {
+      steering.div(total);
+      steering.sub(this.position);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  separate(boids) {
+    let perceptionRadius = 25;
+    let steering = createVector(0, 0);
+    let total = 0;
+
+    for (let other of boids) {
+      let d = dist(this.position.x, this.position.y, other.position.x, other.position.y);
+      if (other !== this && d < perceptionRadius) {
+        let diff = p5.Vector.sub(this.position, other.position);
+        diff.div(d);
+        steering.add(diff);
+        total++;
+      }
+    }
+
+    if (total > 0) {
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+
+    return steering;
+  }
+
+  update() {
+    this.position.add(this.velocity);
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxSpeed);
+    this.acceleration.mult(0);
+
+    if (this.position.x < 0) this.position.x = width;
+    if (this.position.x > width) this.position.x = 0;
+    if (this.position.y < 0) this.position.y = height;
+    if (this.position.y > height) this.position.y = 0;
+
+    this.rotation += this.rotationSpeed;
+
+    this.position.x += sin(frameCount * 0.05) * 0.5;
+    this.position.y += cos(frameCount * 0.05) * 0.5;
+  }
+
+  show(isDungeonMode) {
+    noStroke();
+    textAlign(CENTER, CENTER);
+
+    if (isDungeonMode) {
+      
+      fill(255, 255, 255, 70);
+      text("👻", this.position.x, this.position.y);
+    } else {
+      
+      push();
+      translate(this.position.x, this.position.y);
+      rotate(this.rotation);
+      fill(255, 165, 0);
+      text("🍂", 0, 0); 
+      pop();
+    }
+  }
+}
+
+function setupFlock(numBoids, numCols, numRows) {
+  flock = [];
+  for (let i = 0; i < numBoids; i++) {
+    let x = random(0, numCols * 10); 
+    let y = random(0, numRows * 10);
+    flock.push(new Boid(x, y));
+  }
+}
+
+function updateFlock() {
+  for (let boid of flock) {
+    boid.flock(flock);
+    boid.update();
+    boid.show(isDungeonMode);
   }
 }
 

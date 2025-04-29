@@ -15,17 +15,17 @@
 */
 
 let worldSeed;
-let tileImages = {}; // Object to store tile images
-let portalSpritesheet; // Variable to store the portal spritesheet
-let pico8Spritesheet; // Variable to store the pico8-isometric spritesheet
-let lastWorldSpritesheet; // Variable to store the MRMO_BRIK spritesheet
-const portalFrameCount = 6; // Number of frames in the portal animation
-const pico8TileWidth = 32; // Width of each tile in pico8-isometric.png
-const pico8TileHeight = 32; // Height of each tile in pico8-isometric.png
-const lastWorldTileWidth = 130; // Width of each tile in MRMO_BRIK.png
-const lastWorldTileHeight = 140; // Height of each tile in MRMO_BRIK.png
-let isPico8World = false; // Flag to track if we're in the Pico-8 world
-let isLastWorld = false; // Flag to track if we're in the last world
+let tileImages = {}; 
+let portalSpritesheet; 
+let pico8Spritesheet; 
+let lastWorldSpritesheet; 
+const portalFrameCount = 6; 
+const pico8TileWidth = 32; 
+const pico8TileHeight = 32; 
+const lastWorldTileWidth = 130; 
+const lastWorldTileHeight = 140; 
+let isPico8World = false; 
+let isLastWorld = false; 
 
 function p3_preload() {
   // Load tile images
@@ -68,40 +68,33 @@ function p3_tileClicked(i, j) {
   let key = [i, j];
   clicks[key] = 1 + (clicks[key] | 0);
 
-  // Check if the clicked tile is a portal
   const overlayHash = XXH.h32("overlay:" + [i, j], worldSeed) % 500;
   if (overlayHash === 0) {
     if (isPico8World) {
-      // Switch to the last world
-      const newKey = "last_world"; // Placeholder key for the last world
+      const newKey = "last_world"; 
       p3_worldKeyChanged(newKey);
       isPico8World = false;
       isLastWorld = true;
 
-      // Update the input field with the new world key
       const inputField = document.querySelector("input");
       if (inputField) {
         inputField.value = newKey;
       }
     } else if (isLastWorld) {
-      // Switch back to the first world
-      const newKey = "first_world"; // Placeholder key for the first world
+      const newKey = "first_world"; 
       p3_worldKeyChanged(newKey);
       isLastWorld = false;
       isPico8World = false;
 
-      // Update the input field with the new world key
       const inputField = document.querySelector("input");
       if (inputField) {
         inputField.value = newKey;
       }
     } else {
-      // Switch to the Pico-8 world
-      const newKey = "pico8_world"; // Placeholder key for the Pico-8 world
+      const newKey = "pico8_world";
       p3_worldKeyChanged(newKey);
       isPico8World = true;
 
-      // Update the input field with the new world key
       const inputField = document.querySelector("input");
       if (inputField) {
         inputField.value = newKey;
@@ -114,24 +107,20 @@ function p3_drawBefore() {}
 
 function p3_drawTile(i, j) {
   noStroke();
-
-  // Check if the current tile is a portal
   const overlayHash = XXH.h32("overlay:" + [i, j], worldSeed) % 500;
   let baseTileType;
-  const noiseValue = noise(i * 0.1, j * 0.1); // Use Perlin noise for smoother formations
+  const noiseValue = noise(i * 0.1, j * 0.1);
 
   if (noiseValue < 0.3) {
-    baseTileType = "water"; // Water tiles for rivers/lakes
+    baseTileType = "water";
   } else if (noiseValue < 0.4) {
-    baseTileType = "dirt"; // Dirt tiles for roads
+    baseTileType = "dirt";
   } else {
-    baseTileType = "grass"; // Grass tiles
+    baseTileType = "grass";
   }
 
-  // Prevent portal placement on water tiles
   if (overlayHash === 0 && portalSpritesheet && baseTileType !== "water") {
-    // Draw the animated portal
-    const frameIndex = Math.floor(frameCount / 10) % portalFrameCount; // Change frame every 10 frames
+    const frameIndex = Math.floor(frameCount / 5) % portalFrameCount;
     const frameWidth = portalSpritesheet.width / portalFrameCount;
     push();
     imageMode(CENTER);
@@ -155,20 +144,52 @@ function p3_drawTile(i, j) {
     const lastWorldTileType = determineLastWorldTileType(i, j);
     if (lastWorldTileType) {
       const [sx, sy] = lastWorldTileType;
-      push();
-      imageMode(CENTER);
-      image(
-        lastWorldSpritesheet,
-        0,
-        th * 1.2,
-        tw * 2,
-        th * 4.5,
-        sx * lastWorldTileWidth,
-        sy * lastWorldTileHeight,
-        lastWorldTileWidth,
-        lastWorldTileHeight
-      );
-      pop();
+
+      if (sx === 0 && sy === 0) {
+        const baseHeight = 5; 
+        const noiseValue = noise(i * 0.1, j * 0.1); 
+        const maxHeight = Math.floor(baseHeight + noiseValue * 5);
+
+        for (let layer = 0; layer < maxHeight; layer++) {
+          const edgeNoise = noise((i + layer) * 1.2, (j + layer) * 1.2);
+          const distanceFactor = Math.max(0, 1 - edgeNoise);
+          const adjustedHeight = th * 4.2 - layer * th * distanceFactor;
+
+          if (distanceFactor === 0) {
+            break;
+          }
+
+          push();
+          imageMode(CENTER);
+          image(
+            lastWorldSpritesheet,
+            0,
+            adjustedHeight, 
+            tw * 2,
+            th * 4.5,
+            sx * lastWorldTileWidth,
+            sy * lastWorldTileHeight,
+            lastWorldTileWidth,
+            lastWorldTileHeight
+          );
+          pop();
+        }
+      } else {
+        push();
+        imageMode(CENTER);
+        image(
+          lastWorldSpritesheet,
+          0,
+          th * 1.2,
+          tw * 2,
+          th * 4.5,
+          sx * lastWorldTileWidth,
+          sy * lastWorldTileHeight,
+          lastWorldTileWidth,
+          lastWorldTileHeight
+        );
+        pop();
+      }
     }
     return;
   }
@@ -201,15 +222,13 @@ function p3_drawTile(i, j) {
   if (baseImg) {
     push();
     imageMode(CENTER);
-    image(baseImg, 0, 0, tw * 2.5, th * 7); // Use tw and th directly to preserve the original aspect ratio
+    image(baseImg, 0, 0, tw * 2.5, th * 7);
     pop();
   }
 
-  // Place trees and castles over the base tiles
   if (baseTileType !== "water") {
-    const overlayNoise = noise(i * 0.2, j * 0.2); // Separate noise for overlay objects
+    const overlayNoise = noise(i * 0.2, j * 0.2);
     if (overlayNoise < 0.14) {
-      // Place a castle (less frequent)
       const castleImg = tileImages.castle;
       if (castleImg) {
         
@@ -219,7 +238,6 @@ function p3_drawTile(i, j) {
         pop();
       }
     } else if (overlayNoise >= 0.3 && overlayNoise < 0.4) {
-      // Place a tree (more frequent, like lakes), but ensure it's not too close to a castle
       const treeImg = tileImages.tree;
       if (treeImg) {
         push();
@@ -232,23 +250,21 @@ function p3_drawTile(i, j) {
 }
 
 function determinePico8TileType(i, j) {
-  // Use Perlin noise or other logic to determine the tile type
   const noiseValue = noise(i * 0.1, j * 0.1);
   if (noiseValue < 0.3) return [0, 3]; // Water
   if (noiseValue < 0.4) return [0, 1]; // Dirt
   if (noiseValue < 0.6) return [0, 0]; // Grass
   if (noiseValue < 0.8) return [1, 0]; // Tree
-  return [2, 1]; // Castle
+  return [2, 1]; // rock
 }
 
 function determineLastWorldTileType(i, j) {
-  // Use Perlin noise or other logic to determine the tile type
   const noiseValue = noise(i * 0.1, j * 0.1);
   if (noiseValue < 0.2) return [2, 2]; // Water-like tile
   if (noiseValue < 0.4) return [1, 1]; // Dirt-like tile
   if (noiseValue < 0.6) return [0, 0]; // Grass-like tile
-  if (noiseValue < 0.8) return [2, 2]; // Tree-like tile
-  return [3, 3]; // Castle-like tile
+  if (noiseValue < 0.8) return [2, 2]; // lava-like tile
+  return [3, 3]; // rock-like tile
 }
 
 function p3_drawSelectedTile(i, j) {

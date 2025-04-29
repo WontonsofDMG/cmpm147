@@ -79,13 +79,13 @@ function setup() {
   label.html("World key: ");
   label.parent("canvas-container");
 
-  let input = createInput("xyzzy");
+  let input = createInput("World1_1234");
   input.parent(label);
   input.input(() => {
     rebuildWorld(input.value());
   });
 
-  createP("Arrow keys scroll. Clicking changes tiles.").parent("canvas-container");
+  createP("WASD keys scroll. Clicking portals changes the world.").parent("canvas-container");
 
   rebuildWorld(input.value());
 }
@@ -114,16 +114,16 @@ function mouseClicked() {
 
 function draw() {
   // Keyboard controls!
-  if (keyIsDown(LEFT_ARROW)) {
+  if (keyIsDown(65)) {
     camera_velocity.x -= 1;
   }
-  if (keyIsDown(RIGHT_ARROW)) {
+  if (keyIsDown(68)) {
     camera_velocity.x += 1;
   }
-  if (keyIsDown(DOWN_ARROW)) {
+  if (keyIsDown(83)) {
     camera_velocity.y -= 1;
   }
-  if (keyIsDown(UP_ARROW)) {
+  if (keyIsDown(87)) {
     camera_velocity.y += 1;
   }
 

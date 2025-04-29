@@ -36,7 +36,7 @@ function p3_preload() {
   tileImages.water = loadImage("./js/water_center_W.png");
 
   // Load the portal spritesheet
-  portalSpritesheet = loadImage("./js/isometric_Portal.png");
+  portalSpritesheet = loadImage("./js/Portal.png");
 
   // Load the pico8-isometric spritesheet
   pico8Spritesheet = loadImage("./js/pico8-isometric.png");
@@ -70,8 +70,10 @@ function p3_tileClicked(i, j) {
 
   const overlayHash = XXH.h32("overlay:" + [i, j], worldSeed) % 500;
   if (overlayHash === 0) {
+    const randomSuffix = XXH.h32("random:" + worldSeed + [i, j], worldSeed) % 10000;
+
     if (isPico8World) {
-      const newKey = "last_world"; 
+      const newKey = "World3_" + randomSuffix; 
       p3_worldKeyChanged(newKey);
       isPico8World = false;
       isLastWorld = true;
@@ -81,7 +83,7 @@ function p3_tileClicked(i, j) {
         inputField.value = newKey;
       }
     } else if (isLastWorld) {
-      const newKey = "first_world"; 
+      const newKey = "World1_" + randomSuffix; 
       p3_worldKeyChanged(newKey);
       isLastWorld = false;
       isPico8World = false;
@@ -91,7 +93,7 @@ function p3_tileClicked(i, j) {
         inputField.value = newKey;
       }
     } else {
-      const newKey = "pico8_world";
+      const newKey = "World2_" + randomSuffix;
       p3_worldKeyChanged(newKey);
       isPico8World = true;
 
@@ -118,6 +120,12 @@ function p3_drawTile(i, j) {
   } else {
     baseTileType = "grass";
   }
+
+   // Calculate wave offset for water tiles
+   let waveOffset = 0;
+   if (baseTileType === "water") {
+     waveOffset = Math.sin(frameCount * 0.05 + i * 1 + j * 1) * 0.1 * th;
+   }
 
   if (overlayHash === 0 && portalSpritesheet && baseTileType !== "water") {
     const frameIndex = Math.floor(frameCount / 5) % portalFrameCount;
@@ -180,7 +188,7 @@ function p3_drawTile(i, j) {
         image(
           lastWorldSpritesheet,
           0,
-          th * 1.2,
+          th * 1.2 + waveOffset,
           tw * 2,
           th * 4.5,
           sx * lastWorldTileWidth,
@@ -204,7 +212,7 @@ function p3_drawTile(i, j) {
       image(
         pico8Spritesheet,
         0,
-        -th *0.2,
+        -th *0.2 + waveOffset,
         tw * 1.5,
         th * 4,
         sx * pico8TileWidth,
@@ -222,7 +230,7 @@ function p3_drawTile(i, j) {
   if (baseImg) {
     push();
     imageMode(CENTER);
-    image(baseImg, 0, 0, tw * 2.5, th * 7);
+    image(baseImg, 0 , -1 * waveOffset, tw * 2.5, th * 7);
     pop();
   }
 
@@ -260,11 +268,11 @@ function determinePico8TileType(i, j) {
 
 function determineLastWorldTileType(i, j) {
   const noiseValue = noise(i * 0.1, j * 0.1);
-  if (noiseValue < 0.2) return [2, 2]; // Water-like tile
-  if (noiseValue < 0.4) return [1, 1]; // Dirt-like tile
-  if (noiseValue < 0.6) return [0, 0]; // Grass-like tile
-  if (noiseValue < 0.8) return [2, 2]; // lava-like tile
-  return [3, 3]; // rock-like tile
+  if (noiseValue < 0.1) return [1, 1]; // lava tile
+  if (noiseValue < 0.4) return [2, 2]; // water tile
+  if (noiseValue < 0.5) return [0, 0]; // mountain stone tile
+  if (noiseValue < 0.8) return [1, 0]; // flat stone tile
+  return [1, 1]; // lava tile
 }
 
 function p3_drawSelectedTile(i, j) {

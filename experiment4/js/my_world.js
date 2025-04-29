@@ -36,7 +36,7 @@ function p3_preload() {
   tileImages.water = loadImage("./js/water_center_W.png");
 
   // Load the portal spritesheet
-  portalSpritesheet = loadImage("./js/isometric_Portal.png");
+  portalSpritesheet = loadImage("./js/Portal.png");
 
   // Load the pico8-isometric spritesheet
   pico8Spritesheet = loadImage("./js/pico8-isometric.png");

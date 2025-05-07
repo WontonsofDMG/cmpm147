@@ -1,4 +1,3 @@
-
 /* exported preload, setup, draw */
 /* global memory, dropper, restart, rate, slider, activeScore, bestScore, fpsCounter */
 /* global getInspirations, initDesign, renderDesign, mutateDesign */
@@ -38,8 +37,6 @@ function inspirationChanged(nextInspiration) {
   setup();
 }
 
-
-
 function setup() {
   currentCanvas = createCanvas(width, height);
   currentCanvas.parent(document.getElementById("active"));
@@ -49,7 +46,6 @@ function setup() {
   image(currentInspiration.image, 0,0, width, height);
   loadPixels();
   currentInspirationPixels = pixels;
-
 }
 
 function evaluate() {
@@ -84,7 +80,7 @@ function memorialize() {
 
   memory.insertBefore(img, memory.firstChild);
 
-  if (memory.childNodes.length > memory.dataset.maxItems) {
+  if (memory.childNodes.length > 3) {
     memory.removeChild(memory.lastChild);
   }
 }
@@ -92,25 +88,27 @@ function memorialize() {
 let mutationCount = 0;
 
 function draw() {
-  
-  if(!currentDesign) {
+  if (!currentDesign) {
     return;
   }
+
   randomSeed(mutationCount++);
   currentDesign = JSON.parse(JSON.stringify(bestDesign));
   rate.innerHTML = slider.value;
-  mutateDesign(currentDesign, currentInspiration, slider.value/100.0);
-  
+  mutateDesign(currentDesign, currentInspiration, slider.value / 100.0);
+
+  const selectedShape = document.getElementById("shape-selector").value; // Get selected shape
   randomSeed(0);
-  renderDesign(currentDesign, currentInspiration);
+  renderDesign(currentDesign, currentInspiration, selectedShape); // Pass selected shape
   let nextScore = evaluate();
   activeScore.innerHTML = nextScore;
+
   if (nextScore > currentScore) {
     currentScore = nextScore;
     bestDesign = currentDesign;
     memorialize();
     bestScore.innerHTML = currentScore;
   }
-  
+
   fpsCounter.innerHTML = Math.round(frameRate());
 }

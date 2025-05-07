@@ -17,3 +17,24 @@ body {
     width: 100%;
     height: 100%;
 }
+
+#active-memory-container {
+    display: flex;
+    align-items: stretch; /* Ensure both children stretch to the same height */
+    gap: 1px; /* Adjust spacing between the elements */
+}
+
+#active {
+    flex: 1; /* Ensure the left section takes equal width */
+    max-height: 100%; /* Prevent it from exceeding the container's height */
+    /* Prevent scrolling or overflow for the left section */
+}
+
+#initial-memory-container {
+    flex: 1; /* Ensure the right section takes equal width */
+    max-height: 50%; /* Prevent it from exceeding the container's height */
+     /* Add scrollbars only if content overflows */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}

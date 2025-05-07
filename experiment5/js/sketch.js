@@ -9,10 +9,7 @@ let currentInspiration;
 let currentCanvas;
 let currentInspirationPixels;
 
-
 function preload() {
-  
-
   let allInspirations = getInspirations();
 
   for (let i = 0; i < allInspirations.length; i++) {
@@ -41,11 +38,21 @@ function setup() {
   currentCanvas = createCanvas(width, height);
   currentCanvas.parent(document.getElementById("active"));
   currentScore = Number.NEGATIVE_INFINITY;
-  currentDesign = initDesign(currentInspiration);
+  const selectedShape = document.getElementById("shape-selector").value; // Get the selected shape
+  currentDesign = initDesign(currentInspiration, selectedShape); 
   bestDesign = currentDesign;
-  image(currentInspiration.image, 0,0, width, height);
+  image(currentInspiration.image, 0, 0, width, height);
   loadPixels();
   currentInspirationPixels = pixels;
+
+  // Add the inspiration image to the "Initial Memory" container
+  const initialMemoryContainer = document.getElementById("initial-memory");
+  initialMemoryContainer.innerHTML = ""; // Clear any existing content
+  const img = document.createElement("img");
+  img.src = currentInspiration.image.canvas.toDataURL(); // Convert p5 image to data URL
+  img.width = width; // Adjust size as needed
+  img.height = height; // Adjust size as needed
+  initialMemoryContainer.appendChild(img);
 }
 
 function evaluate() {
@@ -60,8 +67,6 @@ function evaluate() {
   return 1/(1+error/n);
 }
 
-
-
 function memorialize() {
   let url = currentCanvas.canvas.toDataURL();
 
@@ -75,12 +80,12 @@ function memorialize() {
   document.getElementById("best").innerHTML = "";
   document.getElementById("best").appendChild(img.cloneNode());
 
-  img.width = width / 2;
-  img.height = height / 2;
+  img.width = width / 1.5;
+  img.height = height / 1.5;
 
   memory.insertBefore(img, memory.firstChild);
 
-  if (memory.childNodes.length > 3) {
+  if (memory.childNodes.length > memory.dataset.maxItems) {
     memory.removeChild(memory.lastChild);
   }
 }

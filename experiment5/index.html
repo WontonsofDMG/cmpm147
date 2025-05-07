@@ -42,6 +42,7 @@
 						<option value="square">Square</option>
 						<option value="triangle">Triangle</option>
 						<option value="text">Text</option>
+						
 					</select>
 					<body>
 						<select id="dropper"></select>
@@ -57,7 +58,12 @@
 							value="100"
 						  />
 						</p>
-						<p id="active"></p>
+						<div id="active-memory-container">
+							<p id="active"></p>
+							<div id="initial-memory-container">
+								<div id="initial-memory"></div>
+							</div>
+						</div>
 						<p>Active score: <span id="activeScore"></span></p>
 						<p>Exploration rate: <span id="fpsCounter"></span> fps</p>
 						<p id="best"></p>

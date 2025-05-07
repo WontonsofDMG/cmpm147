@@ -107,7 +107,7 @@ function renderDesign(design, inspiration, selectedShape) {
         );
         break;
       case "text":
-        textSize(max(shape.w*2, 32));
+        textSize(max(shape.w*1.5, 24));
         fill(shape.fill, 128); // Add alpha value for varying opacity
         //strokeWeight(6); // Set the thickness of the stroke
         text(shape.text, 0, 0);
@@ -131,8 +131,8 @@ function mutateDesign(design, inspiration, rate) {
 
     if (shape.type === "text") {
       // Lower the mutation rate but increase the jump range
-      if (random() < rate ) { // Lower probability of mutation
-        const jumpRange = 10; // Drastic jump range
+      if (random() < rate/5 ) { // Lower probability of mutation
+        const jumpRange = 5; // Drastic jump range
         const newCharCode = shape.text.charCodeAt(0) + floor(random(-jumpRange, jumpRange + 1));
         shape.text = String.fromCharCode(constrain(newCharCode, 65, 90)); // Ensure it's within A-Z
       }

@@ -55,7 +55,7 @@ function initDesign(inspiration, selectedShape) {
   };
 
   // Determine the number of shapes based on the selected shape type
-  const shapeCount = selectedShape === "text" ? 442 : 2500;
+  const shapeCount = selectedShape === "text" ? 700 : 2500;
 
   for (let i = 0; i < shapeCount-1; i++) {
     const shape = {
@@ -107,7 +107,7 @@ function renderDesign(design, inspiration, selectedShape) {
         );
         break;
       case "text":
-        textSize(max(shape.w*1.5, 24));
+        textSize(max(shape.w, 24));
         fill(shape.fill, 128); // Add alpha value for varying opacity
         //strokeWeight(6); // Set the thickness of the stroke
         text(shape.text, 0, 0);

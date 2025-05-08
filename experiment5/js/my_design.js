@@ -4,6 +4,31 @@
 function getInspirations() {
   return [
     {
+      name: "B&W Skull", 
+      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/skulls-black-white-vector-illustration_801978-69358.jpg?v=1746570370480",
+      credit: "https://img.freepik.com/premium-vector/skulls-black-white-vector-illustration_801978-69358.jpg?w=1380"
+    },
+    {
+      name: "B&W Face", 
+      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/b2ef1cc0673261e2380235cffc420c79.jpg?v=1746565689155",
+      credit: "https://i.pinimg.com/originals/b2/ef/1c/b2ef1cc0673261e2380235cffc420c79.jpg"
+    },
+    {
+      name: "Chicken Wes", 
+      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/13129680_976495309064942_1488057643_n.jpg?v=1746662444087",
+      credit: "Wes Modes, 2025"
+    },
+    {
+      name: "Wes Modes", 
+      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/eafedd28-6a9f-4ea7-a710-d396435a9fa6.jpg?v=1746661845375",
+      credit: "Wes Modes, 2025"
+    },
+    {
+      name: "Prom Wes", 
+      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/10985994_1587160614860734_407523405_n.jpg?v=1746662454115",
+      credit: "Wes Modes, 2025"
+    },
+    {
       name: "Lunch atop a Skyscraper", 
       assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/lunch-on-a-skyscraper.jpg?v=1714798266994",
       credit: "Lunch atop a Skyscraper, Charles Clyde Ebbets, 1932"
@@ -19,11 +44,6 @@ function getInspirations() {
       credit: "Migrant Mother near Nipomo, California, Dorothea Lange, 1936"
     },
     {
-      name: "Disaster Girl", 
-      assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/girl-with-fire.jpg?v=1714778905663",
-      credit: "Four-year-old Zoë Roth, 2005"
-    },
-    {
       name: "Obama", 
       assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/Barack-Obama-Stencil-1.jpg?v=1746565682475",
       credit: "https://superstencil.com/images/People-Celebrity/Barack-Obama/Barack-Obama-Stencil-1.jpg"
@@ -32,16 +52,6 @@ function getInspirations() {
       name: "Abstract B&W", 
       assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/black-and-white-pattern-abstract-texture-abstract-background-design-illustration-vector.jpg?v=1746565685749",
       credit: "https://static.vecteezy.com/system/resources/previews/012/012/756/original/black-and-white-pattern-abstract-texture-abstract-background-design-illustration-vector.jpg"
-    },
-    {
-      name: "B&W Face", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/b2ef1cc0673261e2380235cffc420c79.jpg?v=1746565689155",
-      credit: "https://i.pinimg.com/originals/b2/ef/1c/b2ef1cc0673261e2380235cffc420c79.jpg"
-    },
-    {
-      name: "B&W Skull", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/skulls-black-white-vector-illustration_801978-69358.jpg?v=1746570370480",
-      credit: "https://img.freepik.com/premium-vector/skulls-black-white-vector-illustration_801978-69358.jpg?w=1380"
     },
   ];
 }
@@ -107,7 +117,7 @@ function renderDesign(design, inspiration, selectedShape) {
         );
         break;
       case "text":
-        textSize(max(shape.w, 24));
+        textSize(max(shape.w*2, 32));
         fill(shape.fill, 128); // Add alpha value for varying opacity
         //strokeWeight(6); // Set the thickness of the stroke
         text(shape.text, 0, 0);
@@ -131,7 +141,7 @@ function mutateDesign(design, inspiration, rate) {
 
     if (shape.type === "text") {
       // Lower the mutation rate but increase the jump range
-      if (random() < rate/3 ) { // Lower probability of mutation
+      if (random() < rate/5 ) { // Lower probability of mutation
         const jumpRange = 10; // Drastic jump range
         const newCharCode = shape.text.charCodeAt(0) + floor(random(-jumpRange, jumpRange + 1));
         shape.text = String.fromCharCode(constrain(newCharCode, 65, 90)); // Ensure it's within A-Z

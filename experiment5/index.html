@@ -38,24 +38,26 @@
 				<div id="canvas-container">
 					<!-- canvas will be added here -->
 					<select id="shape-selector">
-						<option value="circle">Circle</option>
-						<option value="square">Square</option>
 						<option value="triangle">Triangle</option>
 						<option value="text">Text</option>
-						
+						<option value="circle">Circle</option>
+						<option value="square">Square</option>
 					</select>
 					<body>
 						<select id="dropper"></select>
 						<button id="restart">
 						  restart
 						</button>
+						<button id="go-crazy">Go Crazy: 100%</button>
+						<button id="fix-colors">Fix Colors: 1%</button>
+						<button id="random">Random!</button>
 						<p>
 						  Mutation rate (<span id="rate"></span>%):<br /><input
 							id="slider"
 							type="range"
 							min="1"
 							max="100"
-							value="100"
+							value="9"
 						  />
 						</p>
 						<div id="active-memory-container">

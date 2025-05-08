@@ -117,3 +117,19 @@ function draw() {
 
   fpsCounter.innerHTML = Math.round(frameRate());
 }
+
+document.getElementById("go-crazy").addEventListener("click", () => {
+  document.getElementById("slider").value = 100;
+  rate.innerHTML = 100;
+});
+
+document.getElementById("fix-colors").addEventListener("click", () => {
+  document.getElementById("slider").value = 1;
+  rate.innerHTML = 1;
+});
+
+document.getElementById("random").addEventListener("click", () => {
+  const randomValue = Math.floor(Math.random() * 100) + 1;
+  document.getElementById("slider").value = randomValue;
+  rate.innerHTML = randomValue;
+});

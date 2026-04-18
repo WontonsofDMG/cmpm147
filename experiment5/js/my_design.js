@@ -5,13 +5,13 @@ function getInspirations() {
   return [
     {
       name: "image1",
-      assetUrl: "images/insp1.png",
-      credit: "Local file: experiment5/images/insp1.png"
+      assetUrl: "images/insp1.gif",
+      credit: "Local file: experiment5/images/insp1.gif"
     },
     {
       name: "image2",
-      assetUrl: "images/insp2.png",
-      credit: "Local file: experiment5/images/insp2.png"
+      assetUrl: "images/insp2.gif",
+      credit: "Local file: experiment5/images/insp2.gif"
     },
     {
       name: "image3",

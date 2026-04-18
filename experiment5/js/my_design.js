@@ -5,52 +5,22 @@ function getInspirations() {
   return [
     {
       name: "B&W Skull", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/skulls-black-white-vector-illustration_801978-69358.jpg?v=1746570370480",
+      assetUrl: "https://img.freepik.com/premium-vector/skulls-black-white-vector-illustration_801978-69358.jpg?w=1380",
       credit: "https://img.freepik.com/premium-vector/skulls-black-white-vector-illustration_801978-69358.jpg?w=1380"
     },
     {
       name: "B&W Face", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/b2ef1cc0673261e2380235cffc420c79.jpg?v=1746565689155",
+      assetUrl: "https://i.pinimg.com/originals/b2/ef/1c/b2ef1cc0673261e2380235cffc420c79.jpg",
       credit: "https://i.pinimg.com/originals/b2/ef/1c/b2ef1cc0673261e2380235cffc420c79.jpg"
     },
     {
-      name: "Chicken Wes", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/13129680_976495309064942_1488057643_n.jpg?v=1746662444087",
-      credit: "Wes Modes, 2025"
-    },
-    {
-      name: "Wes Modes", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/eafedd28-6a9f-4ea7-a710-d396435a9fa6.jpg?v=1746661845375",
-      credit: "Wes Modes, 2025"
-    },
-    {
-      name: "Prom Wes", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/10985994_1587160614860734_407523405_n.jpg?v=1746662454115",
-      credit: "Wes Modes, 2025"
-    },
-    {
-      name: "Lunch atop a Skyscraper", 
-      assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/lunch-on-a-skyscraper.jpg?v=1714798266994",
-      credit: "Lunch atop a Skyscraper, Charles Clyde Ebbets, 1932"
-    },
-    {
-      name: "Train Wreck", 
-      assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/train-wreck.jpg?v=1714798264965",
-      credit: "Train Wreck At Monteparnasse, Levy & fils, 1895"
-    },
-    {
-      name: "Migrant mother", 
-      assetUrl: "https://cdn.glitch.global/3abd0223-86fb-43ce-a00a-fde12615bcd5/migrant-mother.jpg?v=1714778906791",
-      credit: "Migrant Mother near Nipomo, California, Dorothea Lange, 1936"
-    },
-    {
       name: "Obama", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/Barack-Obama-Stencil-1.jpg?v=1746565682475",
+      assetUrl: "https://superstencil.com/images/People-Celebrity/Barack-Obama/Barack-Obama-Stencil-1.jpg",
       credit: "https://superstencil.com/images/People-Celebrity/Barack-Obama/Barack-Obama-Stencil-1.jpg"
     },
     {
       name: "Abstract B&W", 
-      assetUrl: "https://cdn.glitch.global/8c0aab1b-1403-4b08-ad10-259400d84678/black-and-white-pattern-abstract-texture-abstract-background-design-illustration-vector.jpg?v=1746565685749",
+      assetUrl: "https://static.vecteezy.com/system/resources/previews/012/012/756/original/black-and-white-pattern-abstract-texture-abstract-background-design-illustration-vector.jpg",
       credit: "https://static.vecteezy.com/system/resources/previews/012/012/756/original/black-and-white-pattern-abstract-texture-abstract-background-design-illustration-vector.jpg"
     },
   ];

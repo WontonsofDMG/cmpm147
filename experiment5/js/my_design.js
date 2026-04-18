@@ -4,24 +4,34 @@
 function getInspirations() {
   return [
     {
-      name: "B&W Skull", 
-      assetUrl: "https://img.freepik.com/premium-vector/skulls-black-white-vector-illustration_801978-69358.jpg?w=1380",
-      credit: "https://img.freepik.com/premium-vector/skulls-black-white-vector-illustration_801978-69358.jpg?w=1380"
+      name: "image1",
+      assetUrl: "images/image1.png",
+      credit: "Local file: experiment5/images/image1.png"
     },
     {
-      name: "B&W Face", 
-      assetUrl: "https://i.pinimg.com/originals/b2/ef/1c/b2ef1cc0673261e2380235cffc420c79.jpg",
-      credit: "https://i.pinimg.com/originals/b2/ef/1c/b2ef1cc0673261e2380235cffc420c79.jpg"
+      name: "image2",
+      assetUrl: "images/image2.png",
+      credit: "Local file: experiment5/images/image2.png"
     },
     {
-      name: "Obama", 
-      assetUrl: "https://superstencil.com/images/People-Celebrity/Barack-Obama/Barack-Obama-Stencil-1.jpg",
-      credit: "https://superstencil.com/images/People-Celebrity/Barack-Obama/Barack-Obama-Stencil-1.jpg"
+      name: "image3",
+      assetUrl: "images/image3.png",
+      credit: "Local file: experiment5/images/image3.png"
     },
     {
-      name: "Abstract B&W", 
-      assetUrl: "https://static.vecteezy.com/system/resources/previews/012/012/756/original/black-and-white-pattern-abstract-texture-abstract-background-design-illustration-vector.jpg",
-      credit: "https://static.vecteezy.com/system/resources/previews/012/012/756/original/black-and-white-pattern-abstract-texture-abstract-background-design-illustration-vector.jpg"
+      name: "image6",
+      assetUrl: "images/image6.png",
+      credit: "Local file: experiment5/images/image6.png"
+    },
+    {
+      name: "image4",
+      assetUrl: "images/image4.png",
+      credit: "Local file: experiment5/images/image4.png"
+    },
+    {
+      name: "image5",
+      assetUrl: "images/image5.png",
+      credit: "Local file: experiment5/images/image5.png"
     },
   ];
 }

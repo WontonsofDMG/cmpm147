@@ -5,33 +5,23 @@ function getInspirations() {
   return [
     {
       name: "image1",
-      assetUrl: "images/image1.png",
-      credit: "Local file: experiment5/images/image1.png"
+      assetUrl: "images/insp1.png",
+      credit: "Local file: experiment5/images/insp1.png"
     },
     {
       name: "image2",
-      assetUrl: "images/image2.png",
-      credit: "Local file: experiment5/images/image2.png"
+      assetUrl: "images/insp2.png",
+      credit: "Local file: experiment5/images/insp2.png"
     },
     {
       name: "image3",
-      assetUrl: "images/image3.png",
-      credit: "Local file: experiment5/images/image3.png"
-    },
-    {
-      name: "image6",
-      assetUrl: "images/image6.png",
-      credit: "Local file: experiment5/images/image6.png"
+      assetUrl: "images/insp3.png",
+      credit: "Local file: experiment5/images/insp3.png"
     },
     {
       name: "image4",
-      assetUrl: "images/image4.png",
-      credit: "Local file: experiment5/images/image4.png"
-    },
-    {
-      name: "image5",
-      assetUrl: "images/image5.png",
-      credit: "Local file: experiment5/images/image5.png"
+      assetUrl: "images/insp4.jpg",
+      credit: "Local file: experiment5/images/insp4.jpg"
     },
   ];
 }
